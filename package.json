@@ -1,0 +1,21 @@
+{
+  "name": "gitcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emtiantian/testProject.git"
+  },
+  "author": "haohe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emtiantian/testProject/issues"
+  },
+  "homepage": "https://github.com/emtiantian/testProject#readme"
+}
