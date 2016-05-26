@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta charset="utf-8" />
+		<title></title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<script src="js/jquery-2.1.0.js"></script>
+		<link href="css/iSlider.css" />
+		<link rel="stylesheet" href="css/semantic.min.css" />
+		<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "//hm.baidu.com/hm.js?9ea057c7872fb20e83409bf40a2f69cf";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+		</script>
+
+		<!--引用百度地图API-->
+		<style type="text/css">
+		    html,body{margin:0;padding:0;}
+		    .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+		    .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+		     #dituContent{
+		    	width: 515px;
+		    	height: 330px;
+		    }
+		    @media only screen and (min-width: 100px) and (max-width: 640px) {
+		    	 #dituContent{
+			    	width: 290px;
+			    	height: 360px;
+			    }
+		    }
+		   
+		</style>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+		
+		<style>
+			 /*ul wrapper*/
+        #iSlider-wrapper1 {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        #iSlider-wrapper1 ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #iSlider-wrapper1 li {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            list-style: none;
+        }
+		
+        #iSlider-wrapper1 li img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+         #iSlider-wrapper2 {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        #iSlider-wrapper2 ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #iSlider-wrapper2 li {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            list-style: none;
+        }
+
+        #iSlider-wrapper2 li img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 100%;            
+        }
+        
+        
+             /*ul wrapper*/
+        #iSlider-wrapper3 {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        #iSlider-wrapper3 ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #iSlider-wrapper3 li {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            list-style: none;
+        }
+
+        #iSlider-wrapper3 li img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .music-btn {
+            float: right;
+            width: 1.8333333333333rem;
+            height: 1.8333333333333rem;
+            background: url('//be-fe.github.io/static/images/iSlider-card/music-icon.png');
+            background-size: cover;
+        }
+
+        .music-btn.on {
+            -webkit-animation: reverseRotataZ 1.2s linear infinite;
+        }
+
+        .media-wrap {
+            overflow: hidden;
+            position: fixed;
+            top: 2.9166666666667rem;
+            right: 1.375rem;
+            z-index: 10000;
+            width: 6.5em;
+            height: 6.5em;
+            font-size: 16px;
+        }
+
+        .media-wrap span {
+            float: left;
+            height: 4em;
+            width: 4em;
+            line-height: 3rem;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .media-wrap i {
+            width: 2.5em;
+            height: 2.5em;
+        }
+
+        @-webkit-keyframes reverseRotataZ {
+            0% {
+                -webkit-transform: rotateZ(0deg);
+            }
+            100% {
+                -webkit-transform: rotateZ(-360deg);
+            }
+        }
+
+        /* Arrow */
+        #iSlider-arrow {
+            position: absolute;
+            width: 3em;
+            height: 3em;
+            left: 0;
+            right: 0;
+            bottom: 5%;
+            margin: 0 auto;
+            border-top: 2px solid #fff;
+            border-right: 2px solid #fff;
+            z-index: 10000;
+            opacity: 0.8;
+            -webkit-animation: nextPage 1.2s linear infinite;
+        }
+
+        @-webkit-keyframes nextPage {
+            0% {
+                -webkit-transform: translateY(40px) rotate(-45deg);
+                opacity: 0.8;
+            }
+            50% {
+                -webkit-transform: translateY(20px) rotate(-45deg);
+                opacity: 0.4;
+            }
+            100% {
+                -webkit-transform: translateY(10px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+		</style>
+	</head>
+	<body>
+		<!--
+        	作者：hao503106@163.com
+        	时间：2016-05-26
+        	描述：音乐
+        -->
+		<aside class="media-wrap">
+				    <span id="musicBtnTxt" style="display: none;">关闭</span>
+				    <i id="musicBtn" class="music-btn on"></i>
+				</aside>			
+		<audio src="img/2.mp3"  autoplay="autoplay" loop="loop" id="autoplay" ></audio>
+		<!--
+        	作者：hao503106@163.com
+        	时间：2016-05-26
+        	描述：标题
+        -->
+		<h1 class="ui center aligned header">水泥制品厂</h1>
+		<!--
+        	作者：hao503106@163.com
+        	时间：2016-05-26
+        	描述：菜单
+        -->
+		<div class="ui column stackable grid container">	
+			<div class="column">
+			 	<div class="ui two item menu">
+					<a class="item active" id="product">产品介绍</a>
+					<a class="item" id="information">联系我们</a>			
+				</div>
+			</div>
+		</div>
+		<!--
+        	作者：hao503106@163.com
+        	时间：2016-05-26
+        	描述：产品介绍
+        -->
+		<div class="ui two column stackable grid container" id="productContent">
+		  <div class="column">
+		    <div class="ui segment" style="height: 322px;padding: 0;">
+		    	<div  id="iSlider-wrapper1" ></div>		    
+		    </div>
+		  </div>
+		  <div class="column">
+		    <div class="ui segment" >
+		    			<p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
+ 			 			<img class="ui small right floated image" src="img/2.jpg">
+  						<p>Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatis in.</p>
+   						<p>Eu quo homero blandit intellegebat. Incorrupte consequuntur mei id. Mei ut facer dolores adolescens, no illum aperiri quo, usu odio brute at. Qui te porro electram, ea dico facete utroque quo. Populo quodsi te eam, wisi everti eos ex, eum elitr altera utamur at. Quodsi convenire mnesarchum eu per, quas minimum postulant per id.</p>	
+		    </div>
+		  </div>
+		  <div class="two column">
+		    <div class="ui segment" style="height: 330px;padding: 0;">
+		    	<div  id="iSlider-wrapper2">		    		
+		    	</div>		    
+		    </div>
+		  </div>
+		  <div class="column">
+		    <div class="ui segment">		    	
+		    	<img class="ui top aligned tiny image" src="img/4.jpg">
+				<span>Top Aligned</span>
+				<div class="ui divider"></div>
+				<img class="ui middle aligned tiny image" src="img/2.jpg">
+				<span>Middle Aligned</span>
+				<div class="ui divider"></div>
+				<img class="ui middle aligned tiny image" src="img/2.jpg">
+				<span>Middle Aligned</span>
+		    </div>
+		  </div>
+		  <div class="column">
+		    <div class="ui segment" style="height: 330px;padding: 0;" >
+		    	<div id="iSlider-wrapper3"></div>
+				<div id="iSlider-arrow"></div>		    	
+		    </div>
+		  </div>
+		  <div class="column">
+		    <div class="ui segment">
+		    	<div class="ui small images">
+				  <img src="img/4.jpg">
+				  <img src="img/4.jpg">		
+				</div>
+		    	
+		    		
+  <p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
+  <p>Quot wisi nulla ex duo. Vis sint solet expetenda ne Quot wisi nulla ex duo. Vis sint solet expetenda ne Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatis in.</p>
+		    </div>
+		  </div>
+		</div>
+		<!--
+        	作者：hao503106@163.com
+        	时间：2016-05-26
+        	描述：联系我们
+        -->		
+        <div class="ui  two column stackable grid container" id="informationContent" style="display: none;">
+        	<div class="column">
+        		<div class="ui segment">
+        			<p>名称:安家屯水泥预制板厂</p>
+        			<p>联系人:郝炳义</p>
+        			<p>地址/address:吉林省四平市梨树县四棵树乡安家屯村</p>
+        			<p>电话/tel:13591006102</p>	
+        			<p>简介:我厂成立于2009年,地处内蒙古，吉林,辽宁交界处。多年以来一直以优质的品质,最低的价格,优质的服务,为我们的宗旨。现在产品远销3省。</p>
+        			<a href="tel:13591006102"> <button class="ui violet button">联系我们</button></a>
+        		</div>
+        	</div>
+        	<div class="column">
+        		<div class="ui segment">       		    
+        			<div  id="dituContent"></div>	
+        		</div>
+        	</div>      	
+        </div>       
+		</body>
+	
+	
+
+	<script src="js/semantic.min.js"></script>
+	<script src="js/iSlider.js"></script>
+	<script src="js/iSlider.animate.min.js"></script>
+	<script>
+
+		 var list = [
+        {content: "img/1.png"},
+        {content: "img/2.jpg"},
+        {content: "img/3.jpg"},
+        {content: "img/4.jpg"},        
+   		 ];
+	  var n = new iSlider(document.getElementById('iSlider-wrapper2'), list, {
+        isLooping: 1,
+        isOverspread: 1,
+        isAutoplay: true,
+        animateTime: 500,
+        animateType: 'rotate',
+        fixPage: false
+   	});
+    var S = new iSlider(document.getElementById('iSlider-wrapper1'), list, {
+        isLooping: 1,
+        isOverspread: 1,
+        isAutoplay: 1,
+        animateTime: 500,
+        animateType: 'flow'
+    });
+      
+
+    var islider = new iSlider({
+        data: list,
+        dom: document.getElementById("iSlider-wrapper3"),
+        isOverspread: true,
+        isVertical: true,
+        isLooping: true,
+        animateType: 'card',
+        onslidechange: function (idx) {
+            if (this.isLooping === false) {
+                if (idx === this.data.length - 1) {
+                    document.getElementById('iSlider-arrow').style.display = 'none';
+                }
+                else {
+                    document.getElementById('iSlider-arrow').style.display = 'block';
+                }
+            }
+        }
+    });
+	
+    var audio = document.getElementById('autoplay');
+    var controller = document.getElementById('musicBtn');
+    var controllerHint = document.getElementById('musicBtnTxt');
+
+    document.getElementById('musicBtn').addEventListener('click', function () {
+
+        controllerHint.style.display = '';
+        if (audio.paused) {
+            audio.play();
+            controller.className = 'music-btn on';
+            controllerHint.innerHTML = '开始';
+        } else {
+            audio.pause();
+            controller.className = 'music-btn';
+            controllerHint.innerHTML = '关闭';
+        }
+
+        setTimeout(function () {
+            controllerHint.style.display = 'none';
+        }, 1000);
+
+    }, false);
+	$(function(){
+		function close(){
+			$("#productContent").hide();
+			$("#informationContent").hide();
+			$("#product").attr("class","item ");
+			$("#information").attr("class","item ");
+		}
+		$("#product").click(function(){
+			close();
+			$(this).attr("class","item active");
+			$("#productContent").show();
+		})
+		$("#information").click(function(){
+			close();
+			$(this).attr("class","item active");
+			$("#informationContent").show();
+		})		
+	})
+	 //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMarker();//向地图中添加marker
+    }
+    
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(124.054255,43.372647);//定义一个中心点坐标
+        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+    
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+    
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+	map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+	var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+	map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+	var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+	map.addControl(ctrl_sca);
+    }
+    
+    //标注点数组
+    var markerArr = [{title:"安家屯水泥制品厂",content:"安家屯水泥制品厂",point:"124.056286|43.371612",isOpen:0,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+		 ];
+    //创建marker
+    function addMarker(){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0,p1);
+			var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point,{icon:iconImg});
+			var iw = createInfoWindow(i);
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+			marker.setLabel(label);
+            map.addOverlay(marker);
+            label.setStyle({
+                        borderColor:"#808080",
+                        color:"#333",
+                        cursor:"pointer"
+            });
+			
+			(function(){
+				var index = i;
+				var _iw = createInfoWindow(i);
+				var _marker = marker;
+				_marker.addEventListener("click",function(){
+				    this.openInfoWindow(_iw);
+			    });
+			    _iw.addEventListener("open",function(){
+				    _marker.getLabel().hide();
+			    })
+			    _iw.addEventListener("close",function(){
+				    _marker.getLabel().show();
+			    })
+				label.addEventListener("click",function(){
+				    _marker.openInfoWindow(_iw);
+			    })
+				if(!!json.isOpen){
+					label.hide();
+					_marker.openInfoWindow(_iw);
+				}
+			})()
+        }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i){
+        var json = markerArr[i];
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        return iw;
+    }
+    //创建一个Icon
+    function createIcon(json){
+        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        return icon;
+    }
+     initMap();//创建和初始化地图
+ 
+	</script>
+</html>
